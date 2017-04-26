@@ -1,0 +1,82 @@
+---
+title: "Statistical Inference Project Part2"
+author: "GaryFH"
+date: "April 26, 2017"
+output: md_document
+---
+#       OVERVIEW PART 2
+
+###     Basic Inferential Data Analysis of "ToothGrowth data" 
+
+####  In the second portion of the project, we're going to analyze the ToothGrowth data in the R datasets package. 
+
+##### Setup work environment
+```{r echo=FALSE}
+        library(knitr)
+        library(ggplot2)
+        library(dplyr)
+        library(tidyr)
+```
+
+
+###First load data
+
+```{r load}
+        data("ToothGrowth")
+        dtooth<-ToothGrowth
+        dftooth<-tbl_df(dtooth)
+```
+
+###Overview/summary of "ToothGrowth"
+
+```{r overview}
+        summary(dftooth)
+        dftooth
+```
+
+### Find mean of supply mode:
+
+```{r findmeans}
+        df2<-group_by(dtooth,supp)
+        df3<-df3<-summarize(df2,length=mean(len))
+        df3
+```
+
+### Plot 3 - Tooth size vrs kind of supplement used
+
+```{r, Length-supplement}
+
+        g3<-ggplot(dftooth, aes(x=supp,y=len))
+        plot3<-g3+geom_boxplot(aes(fill=supp))+labs(x="Type of Supplement", y="Length of Tooth", title="Length of Tooth vrs supplement type")
+        plot3
+```
+
+### Plot 4 - Tooth size vrs Vitamin Dose
+
+```{r vitaminDose}
+        dftooth$dose<-as.factor(dftooth$dose)
+        g4<-ggplot(dftooth, aes(x=dose,y=len))
+        plot4<-g4+geom_boxplot(aes(fill=dose))+labs(x="Dose-milligrams", y="Length of Tooth", title="Length of Tooth vrs Dose Strength")
+        plot4
+```
+
+
+
+### Use confidence intervals to compare tooth growth by supp.
+
+```{r CI_supp}
+
+        t.test(dftooth$len[dftooth$supp=="OJ"], dftooth$len[dftooth$supp=="VC"], paired = FALSE, var.equal = FALSE)$conf.int
+```
+
+#### The above confidence interval contains 0 therefore we can conclude that the supplement type has no impact on tooth growth
+
+
+### Use confidence intervals to compare tooth growth by dose.
+
+```{r CI_dose}
+
+        t.test(dftooth$len[dftooth$dose==2], dftooth$len[dftooth$dose==1], paired = FALSE, var.equal = FALSE)$conf.int
+```
+
+#### The above confience interval does not contain 0 therefore we can conclude that the supplement type does impact on tooth growth - the higher dose has higher growth rate.
