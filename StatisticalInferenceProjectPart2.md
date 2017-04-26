@@ -76,7 +76,9 @@ OVERVIEW PART 2
 ### Plot 3 - Tooth size vrs kind of supplement used
 
             g3<-ggplot(dftooth, aes(x=supp,y=len))
-            plot3<-g3+geom_boxplot(aes(fill=supp))+labs(x="Type of Supplement", y="Length of Tooth", title="Length of Tooth vrs supplement type")
+            plot3<-g3+geom_boxplot(aes(fill=supp))+
+            labs(x="Type of Supplement", y="Length of Tooth",
+            title="Length of Tooth vrs supplement type")
             plot3
 
 ![](StatisticalInferenceProjectPart2_files/figure-markdown_strict/Length-supplement-1.png)
@@ -85,14 +87,17 @@ OVERVIEW PART 2
 
             dftooth$dose<-as.factor(dftooth$dose)
             g4<-ggplot(dftooth, aes(x=dose,y=len))
-            plot4<-g4+geom_boxplot(aes(fill=dose))+labs(x="Dose-milligrams", y="Length of Tooth", title="Length of Tooth vrs Dose Strength")
+            plot4<-g4+geom_boxplot(aes(fill=dose))+
+            labs(x="Dose-milligrams", y="Length of Tooth",
+            title="Length of Tooth vrs Dose Strength")
             plot4
 
 ![](StatisticalInferenceProjectPart2_files/figure-markdown_strict/vitaminDose-1.png)
 
 ### Use confidence intervals to compare tooth growth by supp.
 
-            t.test(dftooth$len[dftooth$supp=="OJ"], dftooth$len[dftooth$supp=="VC"], paired = FALSE, var.equal = FALSE)$conf.int
+            t.test(dftooth$len[dftooth$supp=="OJ"],
+            dftooth$len[dftooth$supp=="VC"],paired=FALSE,var.equal=FALSE)$conf.int
 
     ## [1] -0.1710156  7.5710156
     ## attr(,"conf.level")
@@ -102,7 +107,8 @@ OVERVIEW PART 2
 
 ### Use confidence intervals to compare tooth growth by dose.
 
-            t.test(dftooth$len[dftooth$dose==2], dftooth$len[dftooth$dose==1], paired = FALSE, var.equal = FALSE)$conf.int
+            t.test(dftooth$len[dftooth$dose==2],dftooth$len[dftooth$dose==1],
+            paired=FALSE,var.equal=FALSE)$conf.int
 
     ## [1] 3.733519 8.996481
     ## attr(,"conf.level")

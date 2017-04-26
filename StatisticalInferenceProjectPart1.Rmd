@@ -3,8 +3,7 @@ title: "Statistical Inference Project Part 1"
 author: "GaryFH"
 date: "April 25, 2017"
 output:
-  pdf_document: default
-  html_document: default
+  md_document: default
 ---
 
 #                            OVERVIEW
@@ -20,35 +19,37 @@ output:
 
 ##### Setup work environment
 ```{r echo=FALSE}
-library(knitr)
-library(ggplot2)
-library(dplyr)
+        library(knitr)
+        library(ggplot2)
+        library(dplyr)
 ```
 
 ##### Make a dataframe of a 1000 rows of 40 observations (n=40) - lamda=.2 and find mean values for each row
 
 ```{r matrix}
-a1<- rexp(40000,.2)
-m1<- matrix(a1,1000)
-d1<-tbl_df(m1)
-mean1<-apply(d1,1,mean)
+        a1<- rexp(40000,.2)
+        m1<- matrix(a1,1000)
+        d1<-tbl_df(m1)
+        mean1<-apply(d1,1,mean)
 
 ```
 
 ##### Look at theortical and actual: mean, standard deviation and variance.   Note that the theortical mean is 1/lamda or 5.   The actual mean is computed below.  Note that the difference between the theortical mean and the actual mean is very small.
 
 ```{r actualmean}
-mean_actual<-mean(mean1)
-mean_actual
+        mean_actual<-mean(mean1)
+        mean_actual
 ```
 
 ##### Let's graph the mean as a density histogram for the 1000 rows of observations
 
 ```{r graph}
-meandf<-data.frame(mean1)
-g<-ggplot(meandf, aes(x=mean1))
-plotmean<-g + geom_histogram(binwidth = .1,fill="yellow",color="black")+labs(x="Mean Values", y="Frequency",title="Simulated distribution of the mean for 1000 rows of 40 exponentials")
-plotmean
+        meandf<-data.frame(mean1)
+        g<-ggplot(meandf, aes(x=mean1))
+        plotmean<-g +geom_histogram(binwidth=.1,fill="yellow",color="black")+
+        labs(x="Mean Values", y="Frequency",
+        title="Simulated distribution for mean of 40 exponentials")
+        plotmean
 
 ```
 
@@ -56,11 +57,11 @@ plotmean
 #### The theortical SD is 1/lamda*1/sqrt(n)=.7905694.  The actual SD is computed below.  Note that the difference between the theortical SD and the actual SD is very small.  The theortical variance is SD^2 = .7905694^2 = .625.  The actual variance is also computed below.    Note that the difference between the theortical variance and the actual variance is also small.
 
 ```{r actualSD}
-sd_actual<-sd(mean1)
-sd_actual
+        sd_actual<-sd(mean1)
+        sd_actual
 
-var_actual<-var(mean1)
-var_actual
+        var_actual<-var(mean1)
+        var_actual
 ```
 
 
@@ -68,10 +69,14 @@ var_actual
 ####  2) Show how variable the sample is (via variance) and compare it to the theoretical variance of the distribution and  3) Show that the distribution is approximately normal.  Let's compare simulated means with a stat_fuction line using theortical mean of 5 and theortical sd of .625.
 
 ```{r plot2}
-g2<-ggplot(meandf, aes(x=mean1) )
-
-plot2<- g2 +geom_histogram(binwidth=.1,fill="yellow",color="black",aes(y=..density..))+labs(x="Mean Values", y="Density",title="Compare distribution of the theortical mean (RedLine) vrs actual mean (GreenLine)") + stat_function(fun = dnorm, args = list(mean=5,sd=.7776059),color="red",size=1) + stat_density(geom="line",color="green",size=1) 
-plot2
+        g2<-ggplot(meandf, aes(x=mean1) )
+        plot2<- g2 +geom_histogram(binwidth=.1,fill="yellow",color="black",
+        aes(y=..density..))+labs(x="Mean Values", y="Density",
+        title="Theortical mean (RedLine) vrs actual mean (GreenLine)")+
+        stat_function(fun=dnorm,args=list(mean=5,sd=.7776059),
+        color="red",size=1)+
+        stat_density(geom="line",color="green",size=1) 
+        plot2
 ```
 
 #### Note that the theortical and actual are similar

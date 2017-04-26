@@ -3,8 +3,8 @@ title: "Statistical Inference Project Part2"
 author: "GaryFH"
 date: "April 26, 2017"
 output:
-  pdf_document: default
-  html_document: default
+ md_document: default
+ 
 ---
 #       OVERVIEW PART 2
 
@@ -49,7 +49,9 @@ output:
 ```{r, Length-supplement}
 
         g3<-ggplot(dftooth, aes(x=supp,y=len))
-        plot3<-g3+geom_boxplot(aes(fill=supp))+labs(x="Type of Supplement", y="Length of Tooth", title="Length of Tooth vrs supplement type")
+        plot3<-g3+geom_boxplot(aes(fill=supp))+
+        labs(x="Type of Supplement", y="Length of Tooth",
+        title="Length of Tooth vrs supplement type")
         plot3
 ```
 
@@ -58,7 +60,9 @@ output:
 ```{r vitaminDose}
         dftooth$dose<-as.factor(dftooth$dose)
         g4<-ggplot(dftooth, aes(x=dose,y=len))
-        plot4<-g4+geom_boxplot(aes(fill=dose))+labs(x="Dose-milligrams", y="Length of Tooth", title="Length of Tooth vrs Dose Strength")
+        plot4<-g4+geom_boxplot(aes(fill=dose))+
+        labs(x="Dose-milligrams", y="Length of Tooth",
+        title="Length of Tooth vrs Dose Strength")
         plot4
 ```
 
@@ -68,7 +72,8 @@ output:
 
 ```{r CI_supp}
 
-        t.test(dftooth$len[dftooth$supp=="OJ"], dftooth$len[dftooth$supp=="VC"], paired = FALSE, var.equal = FALSE)$conf.int
+        t.test(dftooth$len[dftooth$supp=="OJ"],
+        dftooth$len[dftooth$supp=="VC"],paired=FALSE,var.equal=FALSE)$conf.int
 ```
 
 #### The above confidence interval contains 0 therefore we can conclude that the supplement type has no impact on tooth growth
@@ -78,7 +83,8 @@ output:
 
 ```{r CI_dose}
 
-        t.test(dftooth$len[dftooth$dose==2], dftooth$len[dftooth$dose==1], paired = FALSE, var.equal = FALSE)$conf.int
+        t.test(dftooth$len[dftooth$dose==2],dftooth$len[dftooth$dose==1],
+        paired=FALSE,var.equal=FALSE)$conf.int
 ```
 
 #### The above confience interval does not contain 0 therefore we can conclude that the supplement type does impact on tooth growth - the higher dose has higher growth rate.
