@@ -2,7 +2,9 @@
 title: "Statistical Inference Project Part2"
 author: "GaryFH"
 date: "April 26, 2017"
-output: md_document
+output:
+  pdf_document: default
+  html_document: default
 ---
 #       OVERVIEW PART 2
 
